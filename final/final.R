@@ -6,27 +6,6 @@
 #
 #    http://shiny.rstudio.com/
 #
-
-library(shiny)
-library("dplyr")
-library("data.table")
-library("ggplot2")
-library("ggmap")
-library("maps")
-library("mapdata")
-library("colorspace")
-library("rworldmap")
-library(sf)
-library(raster)
-library(spData)
-library(tmap)   
-library(ggthemes)
-library(ggalt)
-library(scales)
-library(rgeos)
-library(maptools)
-library(raster)
-library(viridis)
 # # Define UI for application that draws a histogram
 # ui <- fluidPage(
 #    
@@ -51,8 +30,15 @@ library(viridis)
 # )
 
 library(shiny)
-#library(plotly)
 library(shinythemes)
+library(dplyr)
+library(data.table)
+library(ggplot2)
+library(ggmap)
+library(maps)
+library(mapdata)
+library(viridis)
+
 
 ui <- navbarPage(title = "Pollution",
              theme = shinytheme("cerulean"),
