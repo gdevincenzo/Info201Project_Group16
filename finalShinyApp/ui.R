@@ -18,9 +18,12 @@ library(mapdata)
 library(viridis)
 
 
-ui <- navbarPage(title = "Pollution",
+ui <- navbarPage(title = "Effects of Air Pollution Around the World",
                  theme = shinytheme("cerulean"),
-                 tabPanel("Overview"),
+                 tabPanel("Overview",
+                          mainPanel(
+                            uiOutput("overviewText")
+                          )),
                  tabPanel("Male vs. Female Deaths",
                           #Application title
                           titlePanel("Comparing Male and Female Death Rates"),
@@ -40,8 +43,7 @@ ui <- navbarPage(title = "Pollution",
                             
                             mainPanel(
                               plotOutput("graph"),
-                              textOutput("nText")
-                              
+                              textOutput("plotText")
                             )
                           )
                  ),
@@ -65,5 +67,16 @@ ui <- navbarPage(title = "Pollution",
                             )
                           )
                  ),
-                 tabPanel("Summary")
+                 tabPanel("Total Deaths in Each Country",
+                          titlePanel("Number of Deaths per Cause per Country"),
+                          
+                          sidebarLayout(
+                            sidebarPanel(
+                              textOutput("text")
+                            ),
+                            mainPanel(
+                              tableOutput("table")
+                            )
+                          )
+                 )
 )

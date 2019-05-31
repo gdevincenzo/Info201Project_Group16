@@ -48,13 +48,46 @@ server <- function(input, output) {
       chosenTable <- filter(myTable, myTable$Cause %in% "Chronic obstructive pulmonary disease")
       plot(chosenTable$Male, chosenTable$Female, main = "Male vs. Female Deaths for Chronic obstructive pukmonary disease in each country", xlab = "Male deaths",
            ylab = "Female Deaths")
+      # chosenTable$Color = "cyan"
+      # for(i in 1:length(chosenTable)){
+      #   if(chosenTable[i, 2] > chosenTable[i, 3]) {
+      #     chosenTable[i, 4] = "red"
+      #   }
+      # }
+      # qplot(Male, Female, data = chosenTable, colour = Color)
     }
   })
-  output$nText <- renderText({
+  output$plotText <- renderText({
     paste("Each dot represents a country. If the plot is linear, that means roughly the same amount of males and females
           died from the specified cause in each country. If the dots are more spread out along the bottom, that means
           roughly more males than females died of the cause in each country. The same goes for females if the dots
-          are more spread out along the left side of the plot.")
+          are more spread out along the left side of the plot. By creating this plot, we are able to determine if certain
+          causes of death affect mostly men or women. If one cause affects mostly women, that could be a sign
+          that we need to focus more research on that cuase in women because that's where it's most prominent.")
+  })
+  
+  output$overviewText <- renderUI({
+    url <- a("WHO Dataset", href="http://apps.who.int/gho/data/view.main.SDGAIRBOD392v?lang=en")
+    tagList("The purpose of this project for us was to examine how air pollution affected
+            causes of death around the world for 2016. We got all of our data from a", url,
+            "Our dataset had five causes of death for each country, and every cause of death had
+            data about the number of males, females, and people of both sexes that had
+            died from this cause in 2016. This project was created by...")
+  })
+  
+  output$text <- renderText({
+    paste("This will be a table of the total number of deaths for each sex for each cause")
+  })
+  
+  output$table <- renderTable({
+    finalTable <- fread("data_by_country.csv", stringsAsFactors = FALSE) %>%
+      select(V2, V3, V4, V5) %>% setnames(old = c("V2","V3", "V4", "V5"),
+                                      new = c("Cause", "BothSexes", "Male", "Female"))
+    finalTable <- finalTable[-c(1:3),]
+    finalTable$BothSexes <- gsub("x.*", "", finalTable$BothSexes)
+    finalTable$Male <- gsub("x.*", "", finalTable$Male)
+    finalTable$Female <- gsub("x.*", "", finalTable$Female)
+    finalTable
   })
   
   output$map <- renderPlot({
