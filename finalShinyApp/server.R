@@ -29,34 +29,46 @@ server <- function(input, output) {
     myTable$Female <- gsub("x.*", "", myTable$Female)
     
     if(input$radio == 1) {
-      chosenTable <- filter(myTable, myTable$Cause %in% "Lower respiratory infections")
-      plot(chosenTable$Male, chosenTable$Female, main = "Male vs. Female Deaths for Lower respiratory infections in each country", xlab = "Male deaths",
-           ylab = "Female Deaths")
+      chosenTable <- filter(myTable, myTable$Cause %in% 
+                              "Lower respiratory infections")
+      plot(chosenTable$Male, chosenTable$Female,
+           main = "Male vs. Female Deaths for Lower respiratory infections in 
+           each country", xlab = "Male deaths", ylab = "Female Deaths")
     } else if (input$radio == 2) {
-      chosenTable <- filter(myTable, myTable$Cause %in% "Trachea, bronchus, lung cancers")
-      plot(chosenTable$Male, chosenTable$Female, main = "Male vs. Female Deaths for Trachea, bronchus, and lung cancers in each country", xlab = "Male deaths",
-           ylab = "Female Deaths")
+      chosenTable <- filter(myTable, myTable$Cause %in% 
+                              "Trachea, bronchus, lung cancers")
+      plot(chosenTable$Male, chosenTable$Female, 
+           main = "Male vs. Female Deaths for Trachea, bronchus, and lung cancers
+           in each country", xlab = "Male deaths", ylab = "Female Deaths")
     } else if (input$radio == 3) {
       chosenTable <- filter(myTable, myTable$Cause %in% "Ischaemic heart disease")
-      plot(chosenTable$Male, chosenTable$Female, main = "Male vs. Female Deaths for Ischaemic heart disease in each country", xlab = "Male deaths",
-           ylab = "Female Deaths")
+      plot(chosenTable$Male, chosenTable$Female, 
+           main = "Male vs. Female Deaths for Ischaemic heart disease in
+           each country", xlab = "Male deaths", ylab = "Female Deaths")
     } else if (input$radio == 4) {
       chosenTable <- filter(myTable, myTable$Cause %in% "Stroke")
-      plot(chosenTable$Male, chosenTable$Female, main = "Male vs. Female Deaths for Stroke in each country", xlab = "Male deaths",
+      plot(chosenTable$Male, chosenTable$Female, main = "Male vs. Female Deaths 
+           for Stroke in each country", xlab = "Male deaths",
            ylab = "Female Deaths")
     } else {
-      chosenTable <- filter(myTable, myTable$Cause %in% "Chronic obstructive pulmonary disease")
-      plot(chosenTable$Male, chosenTable$Female, main = "Male vs. Female Deaths for Chronic obstructive pukmonary disease in each country", xlab = "Male deaths",
-           ylab = "Female Deaths")
+      chosenTable <- filter(myTable, myTable$Cause %in% 
+                              "Chronic obstructive pulmonary disease")
+      plot(chosenTable$Male, chosenTable$Female, 
+           main = "Male vs. Female Deaths for Chronic obstructive pulmonary 
+           disease in each country", xlab = "Male deaths",ylab = "Female Deaths")
     }
   })
   output$plotText <- renderText({
-    paste("Each dot represents a country. If the plot is linear, that means roughly the same amount of males and females
-          died from the specified cause in each country. If the dots are more spread out along the bottom, that means
-          roughly more males than females died of the cause in each country. The same goes for females if the dots
-          are more spread out along the left side of the plot. By creating this plot, we are able to determine if certain
-          causes of death affect mostly men or women. If one cause affects mostly women, that could be a sign
-          that we need to focus more research on that cause in women because that's where it's most prominent.")
+    paste("Each dot represents a country. If the plot is linear, that means 
+        roughly the same amount of males and females died from the specified 
+        cause in each country. If the dots are more spread out along the bottom, 
+        that means roughly more males than females died of the cause in each 
+        country. The same goes for females if the dots are more spread out along
+        the left side of the plot. By creating this plot, we are able to 
+        determine if certain causes of death affect mostly men or women. If one 
+        cause affects mostly women, that could be a sign that we need to focus 
+        more research on that cause in women because that's where it's most
+        prominent.")
   })
   
   output$overviewText <- renderUI({
@@ -68,36 +80,44 @@ server <- function(input, output) {
             died from this cause in 2016. This project was created by Allison Gibbons, Gabriela De Vincenzo, Josephine Millard, and Varun Sathambakkam.")
   })
   
-  output$text <- renderText({
-    paste("This is a table of the top 10 countries with the most deaths of both sexes for each cause.
-          We decided to make this table to show which countries are stuggling most with each of these
-          issues, in order to point curious users to the places in need of assistance most.")
+  output$tableText <- renderText({
+    paste("This is a table of the top 10 countries with the most deaths ordered 
+        by both sexes for each cause. We decided to make this table to show which
+        countries are struggling most with each of these issues. If a country 
+        shows up on the top 10 list for multiple causes, that could be a sign 
+        that more research and assistance needs to go to that country in order 
+        to reduce the effects of air pollution in that area.")
   })
   
   output$table <- renderTable({
     newTable <- fread("data_by_country.csv", stringsAsFactors = FALSE) %>%
-      select(V1, V2, V3, V4, V5) %>% setnames(old = c("V1", "V2", "V3", "V4", "V5"),
-                                      new = c("Country", "Cause", "BothSexes", "Male", "Female"))
+      select(V1, V2, V3, V4, V5) %>% setnames(old = c("V1", "V2", "V3", "V4", 
+                                                      "V5"),
+                                      new = c("Country", "Cause", "BothSexes", 
+                                              "Male", "Female"))
     newTable <- newTable[-c(1:3),]
     newTable$BothSexes <- gsub("x.*", "", newTable$BothSexes)
     newTable$Male <- gsub("x.*", "", newTable$Male)
     newTable$Female <- gsub("x.*", "", newTable$Female)
     
     if(input$select == 1) {
-      chosenTable <- filter(newTable, newTable$Cause %in% "Lower respiratory infections")
+      chosenTable <- filter(newTable, newTable$Cause %in% 
+                              "Lower respiratory infections")
     } else if (input$select == 2) {
-      chosenTable <- filter(newTable, newTable$Cause %in% "Trachea, bronchus, lung cancers")
+      chosenTable <- filter(newTable, newTable$Cause %in% 
+                              "Trachea, bronchus, lung cancers")
     } else if (input$select == 3) {
-      chosenTable <- filter(newTable, newTable$Cause %in% "Ischaemic heart disease")
+      chosenTable <- filter(newTable, newTable$Cause %in% 
+                              "Ischaemic heart disease")
     } else if (input$select == 4) {
       chosenTable <- filter(newTable, newTable$Cause %in% "Stroke")
     } else {
-      chosenTable <- filter(newTable, newTable$Cause %in% "Chronic obstructive pulmonary disease")
+      chosenTable <- filter(newTable, newTable$Cause %in% 
+                              "Chronic obstructive pulmonary disease")
     }
     chosenTable <- select(chosenTable, "Country", "BothSexes", "Male", "Female")
     chosenTable <- arrange(chosenTable, desc(as.integer(chosenTable$BothSexes)))
     chosenTable <- chosenTable[c(1:10),]
-    #chosenTable <- summarize(chosenTable, )
   })
   
   output$map <- renderPlot({

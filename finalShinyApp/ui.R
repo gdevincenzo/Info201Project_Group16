@@ -67,8 +67,8 @@ ui <- navbarPage(title = "Effects of Air Pollution Around the World",
                             )
                           )
                  ),
-                 tabPanel("Total Deaths in Each Country",
-                          titlePanel("Number of Deaths per Cause per Country"),
+                 tabPanel("Death Rates by Cause",
+                          titlePanel("Top 10 Death Rates by Cause"),
                           
                           sidebarLayout(
                             sidebarPanel(
@@ -82,7 +82,7 @@ ui <- navbarPage(title = "Effects of Air Pollution Around the World",
                             ),
                             mainPanel(
                               tableOutput("table"),
-                              textOutput("text")
+                              textOutput("tableText")
                             )
                           )
                  )
