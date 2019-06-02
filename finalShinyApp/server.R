@@ -67,12 +67,12 @@ server <- function(input, output) {
   })
   
   output$overviewText <- renderUI({
-    url <- a("WHO Dataset", href="http://apps.who.int/gho/data/view.main.SDGAIRBOD392v?lang=en")
+    url <- a("WHO Dataset.", href="http://apps.who.int/gho/data/view.main.SDGAIRBOD392v?lang=en")
     tagList("The purpose of this project for us was to examine how air pollution affected
             causes of death around the world for 2016. We got all of our data from a", url,
             "Our dataset had five causes of death for each country, and every cause of death had
             data about the number of males, females, and people of both sexes that had
-            died from this cause in 2016. This project was created by...")
+            died from this cause in 2016. This project was created by Allison Gibbons, Gabriela De Vincenzo, Josephine Millard, and Varun Sathambakkam.")
   })
   
   output$text <- renderText({
@@ -121,22 +121,34 @@ server <- function(input, output) {
     main_table <- main_table[-c(1:3),]
     main_table$Deaths <- gsub("x.*", "", main_table$Deaths)
     
-    cause_table <- filter(main_table, Cause != "Total")
-    # generate map from data table
+    cause_table <- main_table
+    num_selected <- 5
     if(input$LRI == FALSE) {
       cause_table <- filter(cause_table, Cause != "Lower respiratory infections")
+      num_selected = num_selected - 1
     }
     if(input$TBLR == FALSE) {
-      cause_table <- filter(cause_table, Cause != "Trachea, Bronchus, Lung Cancers")
+      cause_table <- filter(cause_table, Cause != "Trachea, bronchus, lung cancers")
+      num_selected = num_selected - 1
     }
     if(input$IHD == FALSE) {
-      cause_table <- filter(cause_table, Cause != "Ischaemic Heart Disease")
+      cause_table <- filter(cause_table, Cause != "Ischaemic heart disease")
+      num_selected = num_selected - 1
     }
     if(input$Stroke == FALSE) {
       cause_table <- filter(cause_table, Cause != "Stroke")
+      num_selected = num_selected - 1
     }
     if(input$COPD == FALSE) {
-      cause_table <- filter(cause_table, Cause != "Chronic Obstructive Pulmonary Disease")
+      cause_table <- filter(cause_table, Cause != "Chronic obstructive pulmonary disease")
+      num_selected = num_selected - 1
+    }
+    
+    #in case of no data selected
+    if(num_selected != 0){
+      cause_table <- filter(cause_table, Cause != "Total")
+    }else{
+      cause_table$Deaths <- 0
     }
     
     final_table <- data.table(cause_table$Country, as.integer(cause_table$Deaths))
@@ -162,10 +174,10 @@ server <- function(input, output) {
     final_table$region[134] <- "Macedonia" 
     final_table$region[133] <- "Moldova" 
     
-    
+    # generate map from data table
     world_map <- map_data("world")
     final_table <- inner_join(world_map, final_table, by = "region")
-    
+
     world_base <- ggplot(data = world_map, mapping = aes(x = long, y = lat, group = group)) + 
       coord_fixed(1.3) + 
       geom_polygon(color = NA, fill = "gray")
