@@ -72,10 +72,17 @@ ui <- navbarPage(title = "Effects of Air Pollution Around the World",
                           
                           sidebarLayout(
                             sidebarPanel(
-                              textOutput("text")
+                              selectInput("select", label = h3("Choose a cause"), 
+                                          choices = list("Lower respiratory infections" = 1,
+                                                         "Trachea, bronchus, lung cancers" = 2,
+                                                         "Ischaemic heart disease" = 3,
+                                                         "Stroke" = 4,
+                                                         "Chronic obstructive pulmonary disease" = 5), 
+                                          selected = 1)
                             ),
                             mainPanel(
-                              tableOutput("table")
+                              textOutput("table"),
+                              textOutput("text")
                             )
                           )
                  )

@@ -79,15 +79,28 @@ server <- function(input, output) {
     paste("This will be a table of the total number of deaths for each sex for each cause")
   })
   
-  output$table <- renderTable({
-    finalTable <- fread("data_by_country.csv", stringsAsFactors = FALSE) %>%
-      select(V2, V3, V4, V5) %>% setnames(old = c("V2","V3", "V4", "V5"),
-                                      new = c("Cause", "BothSexes", "Male", "Female"))
-    finalTable <- finalTable[-c(1:3),]
-    finalTable$BothSexes <- gsub("x.*", "", finalTable$BothSexes)
-    finalTable$Male <- gsub("x.*", "", finalTable$Male)
-    finalTable$Female <- gsub("x.*", "", finalTable$Female)
-    finalTable
+  output$table <- renderText({
+    newTable <- fread("data_by_country.csv", stringsAsFactors = FALSE) %>%
+      select(V1, V2, V3, V4, V5) %>% setnames(old = c("V1", "V2", "V3", "V4", "V5"),
+                                      new = c("Country", "Cause", "BothSexes", "Male", "Female"))
+    newTable <- newTable[-c(1:3),]
+    newTable$BothSexes <- gsub("x.*", "", newTable$BothSexes)
+    newTable$Male <- gsub("x.*", "", newTable$Male)
+    newTable$Female <- gsub("x.*", "", newTable$Female)
+    
+    if(input$select == 1) {
+      chosenTable <- filter(newTable, newTable$Cause %in% "Lower respiratory infections")
+    } else if (input$select2) {
+      chosenTable <- filter(newTable, newTable$Cause %in% "Trachea, bronchus, lung cancers")
+    } else if (input$select == 3) {
+      chosenTable <- filter(newTable, newTable$Cause %in% "Ischaemic heart disease")
+    } else if (input$select == 4) {
+      chosenTable <- filter(newTable, newTable$Cause %in% "Stroke")
+    } else {
+      chosenTable <- filter(newTable, newTable$Cause %in% "Chronic obstructive pulmonary disease")
+    }
+    paste("", nrow(chosenTable))
+    #chosenTable <- summarize(chosenTable, )
   })
   
   output$map <- renderPlot({
