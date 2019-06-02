@@ -71,7 +71,7 @@ server <- function(input, output) {
         prominent.")
   })
   
-  output$overviewText <- renderUI({
+  output$introductionText <- renderUI({
     url <- a("WHO Dataset.", href="http://apps.who.int/gho/data/view.main.SDGAIRBOD392v?lang=en")
     tagList("The purpose of this project for us was to examine how air pollution affected
             causes of death around the world for 2016. We got all of our data from a", url,
@@ -80,6 +80,7 @@ server <- function(input, output) {
             died from this cause in 2016. This project was created by Allison Gibbons, Gabriela De Vincenzo, Josephine Millard, and Varun Sathambakkam.")
   })
   
+<<<<<<< HEAD
   output$tableText <- renderText({
     paste("This is a table of the top 10 countries with the most deaths ordered 
         by both sexes for each cause. We decided to make this table to show which
@@ -87,6 +88,16 @@ server <- function(input, output) {
         shows up on the top 10 list for multiple causes, that could be a sign 
         that more research and assistance needs to go to that country in order 
         to reduce the effects of air pollution in that area.")
+=======
+  output$conclusionText <- renderUI({
+    paste("Conclusion Text...")
+  })
+  
+  output$text <- renderText({
+    paste("This is a table of the top 10 countries with the most deaths of both sexes for each cause.
+          We decided to make this table to show which countries are stuggling most with each of these
+          issues, in order to point curious users to the places in need of assistance most.")
+>>>>>>> 2e36210125ecea5b597737db5aeb2ad6c6242d92
   })
   
   output$table <- renderTable({
@@ -208,5 +219,13 @@ server <- function(input, output) {
       no_axes
     
     data_map
+  })
+  
+  output$mapText <- renderText({
+    paste("The world map above shows us how many people per 100,000 died from the chosen causes of death in each country. So,
+          you can examine where in the world people more often die from a specific cause, or set of causes. This tool can be 
+          used to check overall air pollution attributable death rate by country by keeping all possible causes of death selected. 
+          This information can also be used to extrapolate air pollution levels, as countries with higher air pollution are most 
+          often associated with a higher air pollution attributable death rate.")
   })
 }
