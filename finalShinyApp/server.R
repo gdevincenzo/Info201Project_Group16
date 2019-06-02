@@ -59,13 +59,17 @@ server <- function(input, output) {
           that we need to focus more research on that cause in women because that's where it's most prominent.")
   })
   
-  output$overviewText <- renderUI({
+  output$introductionText <- renderUI({
     url <- a("WHO Dataset.", href="http://apps.who.int/gho/data/view.main.SDGAIRBOD392v?lang=en")
     tagList("The purpose of this project for us was to examine how air pollution affected
             causes of death around the world for 2016. We got all of our data from a", url,
             "Our dataset had five causes of death for each country, and every cause of death had
             data about the number of males, females, and people of both sexes that had
             died from this cause in 2016. This project was created by Allison Gibbons, Gabriela De Vincenzo, Josephine Millard, and Varun Sathambakkam.")
+  })
+  
+  output$conclusionText <- renderUI({
+    paste("Conclusion Text...")
   })
   
   output$text <- renderText({
@@ -188,5 +192,13 @@ server <- function(input, output) {
       no_axes
     
     data_map
+  })
+  
+  output$mapText <- renderText({
+    paste("The world map above shows us how many people per 100,000 died from the chosen causes of death in each country. So,
+          you can examine where in the world people more often die from a specific cause, or set of causes. This tool can be 
+          used to check overall air pollution attributable death rate by country by keeping all possible causes of death selected. 
+          This information can also be used to extrapolate air pollution levels, as countries with higher air pollution are most 
+          often associated with a higher air pollution attributable death rate.")
   })
 }
