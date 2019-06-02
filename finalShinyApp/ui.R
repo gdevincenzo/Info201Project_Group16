@@ -81,7 +81,7 @@ ui <- navbarPage(title = "Effects of Air Pollution Around the World",
                                           selected = 1)
                             ),
                             mainPanel(
-                              textOutput("table"),
+                              tableOutput("table"),
                               textOutput("text")
                             )
                           )

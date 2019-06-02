@@ -48,13 +48,6 @@ server <- function(input, output) {
       chosenTable <- filter(myTable, myTable$Cause %in% "Chronic obstructive pulmonary disease")
       plot(chosenTable$Male, chosenTable$Female, main = "Male vs. Female Deaths for Chronic obstructive pukmonary disease in each country", xlab = "Male deaths",
            ylab = "Female Deaths")
-      # chosenTable$Color = "cyan"
-      # for(i in 1:length(chosenTable)){
-      #   if(chosenTable[i, 2] > chosenTable[i, 3]) {
-      #     chosenTable[i, 4] = "red"
-      #   }
-      # }
-      # qplot(Male, Female, data = chosenTable, colour = Color)
     }
   })
   output$plotText <- renderText({
@@ -63,7 +56,7 @@ server <- function(input, output) {
           roughly more males than females died of the cause in each country. The same goes for females if the dots
           are more spread out along the left side of the plot. By creating this plot, we are able to determine if certain
           causes of death affect mostly men or women. If one cause affects mostly women, that could be a sign
-          that we need to focus more research on that cuase in women because that's where it's most prominent.")
+          that we need to focus more research on that cause in women because that's where it's most prominent.")
   })
   
   output$overviewText <- renderUI({
@@ -76,10 +69,12 @@ server <- function(input, output) {
   })
   
   output$text <- renderText({
-    paste("This will be a table of the total number of deaths for each sex for each cause")
+    paste("This is a table of the top 10 countries with the most deaths of both sexes for each cause.
+          We decided to make this table to show which countries are stuggling most with each of these
+          issues, in order to point curious users to the places in need of assistance most.")
   })
   
-  output$table <- renderText({
+  output$table <- renderTable({
     newTable <- fread("data_by_country.csv", stringsAsFactors = FALSE) %>%
       select(V1, V2, V3, V4, V5) %>% setnames(old = c("V1", "V2", "V3", "V4", "V5"),
                                       new = c("Country", "Cause", "BothSexes", "Male", "Female"))
@@ -90,7 +85,7 @@ server <- function(input, output) {
     
     if(input$select == 1) {
       chosenTable <- filter(newTable, newTable$Cause %in% "Lower respiratory infections")
-    } else if (input$select2) {
+    } else if (input$select == 2) {
       chosenTable <- filter(newTable, newTable$Cause %in% "Trachea, bronchus, lung cancers")
     } else if (input$select == 3) {
       chosenTable <- filter(newTable, newTable$Cause %in% "Ischaemic heart disease")
@@ -99,7 +94,9 @@ server <- function(input, output) {
     } else {
       chosenTable <- filter(newTable, newTable$Cause %in% "Chronic obstructive pulmonary disease")
     }
-    paste("", nrow(chosenTable))
+    chosenTable <- select(chosenTable, "Country", "BothSexes", "Male", "Female")
+    chosenTable <- arrange(chosenTable, desc(as.integer(chosenTable$BothSexes)))
+    chosenTable <- chosenTable[c(1:10),]
     #chosenTable <- summarize(chosenTable, )
   })
   
