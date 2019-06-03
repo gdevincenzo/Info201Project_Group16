@@ -80,15 +80,6 @@ server <- function(input, output) {
             died from this cause in 2016. This project was created by Allison Gibbons, Gabriela De Vincenzo, Josephine Millard, and Varun Sathambakkam.")
   })
   
-<<<<<<< HEAD
-  output$tableText <- renderText({
-    paste("This is a table of the top 10 countries with the most deaths ordered 
-        by both sexes for each cause. We decided to make this table to show which
-        countries are struggling most with each of these issues. If a country 
-        shows up on the top 10 list for multiple causes, that could be a sign 
-        that more research and assistance needs to go to that country in order 
-        to reduce the effects of air pollution in that area.")
-=======
   output$conclusionText <- renderUI({
     paste("Conclusion Text...")
   })
@@ -97,7 +88,6 @@ server <- function(input, output) {
     paste("This is a table of the top 10 countries with the most deaths of both sexes for each cause.
           We decided to make this table to show which countries are stuggling most with each of these
           issues, in order to point curious users to the places in need of assistance most.")
->>>>>>> 2e36210125ecea5b597737db5aeb2ad6c6242d92
   })
   
   output$table <- renderTable({
