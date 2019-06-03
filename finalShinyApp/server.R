@@ -137,7 +137,7 @@ server <- function(input, output) {
     newTable$Male <- gsub("x.*", "", newTable$Male)
     newTable$Female <- gsub("x.*", "", newTable$Female)
     
-    /#makes table based on input
+    #makes table based on input
     if(input$select == 1) {
       chosenTable <- filter(newTable, newTable$Cause %in% 
                               "Lower respiratory infections")
