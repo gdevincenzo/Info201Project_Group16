@@ -73,6 +73,7 @@ server <- function(input, output) {
   
   output$introductionText <- renderUI({
     url <- a("WHO Dataset.", href="http://apps.who.int/gho/data/view.main.SDGAIRBOD392v?lang=en")
+    
     tagList("With climate change on the rise, the state of our environment has 
             become a big area of interest recently. That's why we decided to focus
             our project on some area of environmental research. We chose a dataset
@@ -83,9 +84,9 @@ server <- function(input, output) {
             Ischaemic heart disease; Stroke; and Chronic obstructive pulmonary 
             disease. Along with these five causes were the number of males, females,
             and members of both sex that had died from each cause in each country.
-            We got all of our data from a", url, "\nThis project was created by 
+            We got all of our data from a", url, tags$br(), tags$br(), tags$i("This project was created by 
             Allison Gibbons, Gabriela De Vincenzo, Josephine Millard, and Varun 
-            Sathambakkam.")
+            Sathambakkam."))
   })
   
   output$conclusionText <- renderUI({

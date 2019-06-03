@@ -1,0 +1,10 @@
+name: finalshinyapp
+title:
+username:
+account: gdevincenzo
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 961880
+bundleId: 2125767
+url: https://gdevincenzo.shinyapps.io/finalshinyapp/
+when: 1559520485.47781
