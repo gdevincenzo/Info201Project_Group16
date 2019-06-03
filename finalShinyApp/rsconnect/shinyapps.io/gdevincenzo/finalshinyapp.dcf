@@ -5,6 +5,6 @@ account: gdevincenzo
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 961880
-bundleId: 2125767
+bundleId: 2126103
 url: https://gdevincenzo.shinyapps.io/finalshinyapp/
-when: 1559520485.47781
+when: 1559541560.12
