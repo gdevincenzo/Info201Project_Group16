@@ -73,21 +73,32 @@ server <- function(input, output) {
   
   output$introductionText <- renderUI({
     url <- a("WHO Dataset.", href="http://apps.who.int/gho/data/view.main.SDGAIRBOD392v?lang=en")
-    tagList("The purpose of this project for us was to examine how air pollution affected
-            causes of death around the world for 2016. We got all of our data from a", url,
-            "Our dataset had five causes of death for each country, and every cause of death had
-            data about the number of males, females, and people of both sexes that had
-            died from this cause in 2016. This project was created by Allison Gibbons, Gabriela De Vincenzo, Josephine Millard, and Varun Sathambakkam.")
+    tagList("With climate change on the rise, the state of our environment has 
+            become a big area of interest recently. That's why we decided to focus
+            our project on some area of environmental research. We chose a dataset
+            that had information about how air pollution affected death rates around
+            the world in 2016. There were 5 causes of deaths that were of interest
+            in our dataset because they are all caused by pollution: Lower 
+            respiratory infections; Trachea, bronchus, and lung cancers; 
+            Ischaemic heart disease; Stroke; and Chronic obstructive pulmonary 
+            disease. Along with these five causes were the number of males, females,
+            and members of both sex that had died from each cause in each country.
+            We got all of our data from a", url, "\nThis project was created by 
+            Allison Gibbons, Gabriela De Vincenzo, Josephine Millard, and Varun 
+            Sathambakkam.")
   })
   
   output$conclusionText <- renderUI({
     paste("Conclusion Text...")
   })
   
-  output$text <- renderText({
-    paste("This is a table of the top 10 countries with the most deaths of both sexes for each cause.
-          We decided to make this table to show which countries are stuggling most with each of these
-          issues, in order to point curious users to the places in need of assistance most.")
+  output$tableText <- renderText({
+    paste("This is a table of the top 10 countries with the most deaths ordered 
+        by both sexes for each cause. We decided to make this table to show which
+          countries are struggling most with each of these issues. If a country 
+          shows up on the top 10 list for multiple causes, that could be a sign 
+          that more research and assistance needs to go to that country in order 
+          to reduce the effects of air pollution in that area.")
   })
   
   output$table <- renderTable({
