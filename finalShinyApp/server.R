@@ -74,46 +74,49 @@ server <- function(input, output) {
   output$introductionText <- renderUI({
     url <- a("WHO Dataset.", href="http://apps.who.int/gho/data/view.main.SDGAIRBOD392v?lang=en")
     
-    tagList("With climate change on the rise, the state of our environment has 
+    tagList(tags$div("With climate change on the rise, the state of our environment has 
             become a big area of interest recently. That's why we decided to focus
-            our project on some area of environmental research. We chose a dataset
-            that had information about how air pollution affected death rates around
-            the world in 2016. There were 5 causes of deaths that were of interest
-            in our dataset because they are all caused by pollution: Lower 
-            respiratory infections; Trachea, bronchus, and lung cancers; 
-            Ischaemic heart disease; Stroke; and Chronic obstructive pulmonary 
-            disease. Along with these five causes were the number of males, females,
-            and members of both sex that had died from each cause in each country.
-            We got all of our data from a", url, tags$br(), tags$br(), tags$i("This project was created by 
-            Allison Gibbons, Gabriela De Vincenzo, Josephine Millard, and Varun 
-            Sathambakkam."))
+            our project on some area of environmental research."), tags$br(),
+            tags$div("We chose a dataset that had information about how air 
+            pollution affected death rates around the world in 2016. There were 
+            5 causes of deaths that were of interest in our dataset because they 
+            are all caused by pollution: Lower respiratory infections; Trachea, 
+            bronchus, and lung cancers; Ischaemic heart disease; Stroke; and 
+            Chronic obstructive pulmonary disease. Along with these five causes 
+            were the number of males, females, and members of both sex that had 
+            died from each cause in each country per 100,000 people."), tags$br(),
+            tags$div("We got all of our data from a", url), tags$br(), tags$br(),
+            tags$i("This project was created by Allison Gibbons, Gabriela De 
+            Vincenzo, Josephine Millard, and Varun Sathambakkam."))
   })
   
   output$conclusionText <- renderUI({
     url <- a("our GitHub Repo.", href="https://github.com/gdevincenzo/Info201Project_Group16")
-    tagList("Through our data anaylsis, we were able to identify a few interesting
+    tagList(tags$div("Through our data anaylsis, we were able to identify a few interesting
             points about air pollution. For trachea, bronchus, and lung cancers, a 
             noticeably large amount of men died compared to the number of women. 
             This could be a sign that these cancers affect more men and women, 
-            which would be useful in future research of these cancers. We also 
-            noticed that the lower respiratory infections had the highest rate
-            of people dying per 100,00 compared to the other causes. It would be
-            interesting to research why these are so common and if they're always
-            fatal, so we could possibly lower this rate. The final point of interest
-            we found is that the Democratic People's Republic of Korea was top on
+            which would be useful in future research of these cancers."), tags$br(),
+            tags$div("We also noticed that the lower respiratory infections had 
+            the highest rate of people dying per 100,00 compared to the other 
+            causes. It would be interesting to research why these are so common 
+            and if they're always fatal, so we could possibly lower this rate."),
+            tags$br(), tags$div("The final point of interest we found is that 
+            the Democratic People's Republic of Korea was top on
             the list for 10 countries with the highest death rate for trachea, 
             bronchus, and lung cancers, stroke, and chronic obstructive pulmonary
             disease. This information is very useful to people who are interested
             in the geographical effects of air pollution, because many of the 
-            negative effects are in the same area. We hope that our audience has
-            learned a lot about air pollution, and can potentially use this
-            information to guide future research or answer any questions they had
-            about this topic. Here's a link to", url)
+            negative effects are in the same area."), tags$br(), tags$div("We 
+            hope that our audience has learned a lot about air pollution, and 
+            can potentially use this information to guide future research or 
+            answer any questions they had about this topic."), tags$br(), 
+            tags$br(), tags$div("Here's a link to", url))
   })
   
   output$tableText <- renderText({
     paste("This is a table of the top 10 countries with the most deaths ordered 
-        by both sexes for each cause. We decided to make this table to show which
+          by both sexes for each cause. We decided to make this table to show which
           countries are struggling most with each of these issues. If a country 
           shows up on the top 10 list for multiple causes, that could be a sign 
           that more research and assistance needs to go to that country in order 
@@ -188,7 +191,8 @@ server <- function(input, output) {
       num_selected = num_selected - 1
     }
     if(input$COPD == FALSE) {
-      cause_table <- filter(cause_table, Cause != "Chronic obstructive pulmonary disease")
+      cause_table <- filter(cause_table, Cause != 
+                              "Chronic obstructive pulmonary disease")
       num_selected = num_selected - 1
     }
     
@@ -204,7 +208,8 @@ server <- function(input, output) {
     final_table$region <- final_table$V1
     final_table <- dplyr::select(final_table, x, region)
     
-    #Some countries are named differently in our data and in the maps package, so here we rename them.
+    #Some countries are named differently in our data and in the maps package, 
+    #so here we rename them.
     final_table$region[136] <- "Russia" 
     final_table$region[175] <- "USA" 
     final_table$region[78] <- "Iran" 
@@ -226,7 +231,8 @@ server <- function(input, output) {
     world_map <- map_data("world")
     final_table <- inner_join(world_map, final_table, by = "region")
 
-    world_base <- ggplot(data = world_map, mapping = aes(x = long, y = lat, group = group)) + 
+    world_base <- ggplot(data = world_map, mapping = aes(x = long, y = lat, 
+                                                         group = group)) + 
       coord_fixed(1.3) + 
       geom_polygon(color = NA, fill = "gray")
     
@@ -242,10 +248,14 @@ server <- function(input, output) {
   })
   
   output$mapText <- renderText({
-    paste("The world map above shows us how many people per 100,000 died from the chosen causes of death in each country. So,
-          you can examine where in the world people more often die from a specific cause, or set of causes. This tool can be 
-          used to check overall air pollution attributable death rate by country by keeping all possible causes of death selected. 
-          This information can also be used to extrapolate air pollution levels, as countries with higher air pollution are most 
+    paste("The world map above shows us how many people per 100,000 died from 
+          the chosen causes of death in each country. So,
+          you can examine where in the world people more often die from a 
+          specific cause, or set of causes. This tool can be 
+          used to check overall air pollution attributable death rate by country
+          by keeping all possible causes of death selected. 
+          This information can also be used to extrapolate air pollution levels, 
+          as countries with higher air pollution are most 
           often associated with a higher air pollution attributable death rate.")
   })
 }
