@@ -24,10 +24,12 @@ server <- function(input, output) {
     myTable <- fread("data_by_country.csv", stringsAsFactors = FALSE) %>%
       select(V2, V4, V5) %>% setnames(old = c("V2", "V4", "V5"),
                                           new = c("Cause", "Male", "Female"))
+    #make table numbers readable
     myTable <- myTable[-c(1:3),]
     myTable$Male <- gsub("x.*", "", myTable$Male)
     myTable$Female <- gsub("x.*", "", myTable$Female)
     
+    #make plot based on input
     if(input$radio == 1) {
       chosenTable <- filter(myTable, myTable$Cause %in% 
                               "Lower respiratory infections")
@@ -73,8 +75,8 @@ server <- function(input, output) {
   
   output$introductionText <- renderUI({
     url <- a("WHO Dataset.", href="http://apps.who.int/gho/data/view.main.SDGAIRBOD392v?lang=en")
-    
-    tagList(tags$div("With climate change on the rise, the state of our environment has 
+    tagList(tags$div("With public awareness of climate change growing, the state
+            of our environment has 
             become a big area of interest recently. That's why we decided to focus
             our project on some area of environmental research."), tags$br(),
             tags$div("We chose a dataset that had information about how air 
@@ -92,7 +94,7 @@ server <- function(input, output) {
   
   output$conclusionText <- renderUI({
     url <- a("our GitHub Repo.", href="https://github.com/gdevincenzo/Info201Project_Group16")
-    tagList(tags$div("Through our data anaylsis, we were able to identify a few interesting
+    tagList(tags$div("Through our data anaylsis, we identified a few interesting
             points about air pollution. For trachea, bronchus, and lung cancers, a 
             noticeably large amount of men died compared to the number of women. 
             This could be a sign that these cancers affect more men and women, 
@@ -129,11 +131,13 @@ server <- function(input, output) {
                                                       "V5"),
                                       new = c("Country", "Cause", "BothSexes", 
                                               "Male", "Female"))
+    #make table numbers readable
     newTable <- newTable[-c(1:3),]
     newTable$BothSexes <- gsub("x.*", "", newTable$BothSexes)
     newTable$Male <- gsub("x.*", "", newTable$Male)
     newTable$Female <- gsub("x.*", "", newTable$Female)
     
+    /#makes table based on input
     if(input$select == 1) {
       chosenTable <- filter(newTable, newTable$Cause %in% 
                               "Lower respiratory infections")
@@ -149,6 +153,7 @@ server <- function(input, output) {
       chosenTable <- filter(newTable, newTable$Cause %in% 
                               "Chronic obstructive pulmonary disease")
     }
+    #filters table for top 10 results
     chosenTable <- select(chosenTable, "Country", "BothSexes", "Male", "Female")
     chosenTable <- arrange(chosenTable, desc(as.integer(chosenTable$BothSexes)))
     chosenTable <- chosenTable[c(1:10),]
@@ -173,6 +178,7 @@ server <- function(input, output) {
     main_table$Deaths <- gsub("x.*", "", main_table$Deaths)
     
     cause_table <- main_table
+    #filter for input
     num_selected <- 5
     if(input$LRI == FALSE) {
       cause_table <- filter(cause_table, Cause != "Lower respiratory infections")

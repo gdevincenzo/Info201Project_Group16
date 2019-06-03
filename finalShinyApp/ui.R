@@ -28,7 +28,7 @@ ui <- navbarPage(title = "Effects of Air Pollution Around the World",
                           #Application title
                           titlePanel("Comparing Male and Female Death Rates"),
                           
-                          # Sidebar with a slider input for number of bins
+                          # Sidebar
                           sidebarLayout(
                             sidebarPanel(
                               radioButtons("radio", label = h3("Select a Cause of Death:"),
@@ -73,8 +73,10 @@ ui <- navbarPage(title = "Effects of Air Pollution Around the World",
                           )
                  ),
                  tabPanel("Death Rates by Cause",
+                          #application title
                           titlePanel("Top 10 Death Rates by Cause"),
                           
+                          #sidebar
                           sidebarLayout(
                             sidebarPanel(
                               selectInput("select", label = h3("Choose a cause"), 
