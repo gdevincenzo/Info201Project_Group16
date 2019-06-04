@@ -31,7 +31,8 @@ ui <- navbarPage(title = "Effects of Air Pollution Around the World",
                           # Sidebar
                           sidebarLayout(
                             sidebarPanel(
-                              radioButtons("radio", label = h3("Select a Cause of Death:"),
+                              radioButtons("radio", 
+                                      label = h3("Select a Cause of Death:"),
                                 choices = list("Lower respiratory infections" = 1,
                                       "Trachea, bronchus, lung cancers" = 2,
                                       "Ischaemic heart disease" = 3,
@@ -62,7 +63,8 @@ ui <- navbarPage(title = "Effects of Air Pollution Around the World",
                               checkboxInput("IHD", "Ischaemic Heart Disease",
                                             value = TRUE),
                               checkboxInput("Stroke", "Stroke", value = TRUE),
-                              checkboxInput("COPD", "Chronic Obstructive Pulmonary Disease",
+                              checkboxInput("COPD", 
+                                            "Chronic Obstructive Pulmonary Disease",
                                             value = TRUE)
                             ),
                             
@@ -81,11 +83,11 @@ ui <- navbarPage(title = "Effects of Air Pollution Around the World",
                             sidebarPanel(
                               selectInput("select", label = h3("Choose a cause"), 
                                 choices = list("Lower respiratory infections" = 1,
-                                             "Trachea, bronchus, lung cancers" = 2,
-                                             "Ischaemic heart disease" = 3,
-                                             "Stroke" = 4,
-                                             "Chronic obstructive pulmonary disease" = 5), 
-                                          selected = 1)
+                                    "Trachea, bronchus, lung cancers" = 2,
+                                    "Ischaemic heart disease" = 3,
+                                    "Stroke" = 4,
+                                    "Chronic obstructive pulmonary disease" = 5), 
+                                     selected = 1)
                             ),
                             mainPanel(
                               tableOutput("table"),

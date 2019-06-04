@@ -86,7 +86,10 @@ server <- function(input, output) {
             bronchus, and lung cancers; Ischaemic heart disease; Stroke; and 
             Chronic obstructive pulmonary disease. Along with these five causes 
             were the number of males, females, and members of both sex that had 
-            died from each cause in each country per 100,000 people."), tags$br(),
+            died from each cause in each country per 100,000 people. We were aiming
+            to answer questions about how causes of death affected men and women
+            differenetly, and how they varied based on geographical locations."),
+            tags$br(),
             tags$div("We got all of our data from a", url), tags$br(), tags$br(),
             tags$i("This project was created by Allison Gibbons, Gabriela De 
             Vincenzo, Josephine Millard, and Varun Sathambakkam."))
@@ -95,19 +98,20 @@ server <- function(input, output) {
   output$conclusionText <- renderUI({
     url <- a("our GitHub Repo.", href="https://github.com/gdevincenzo/Info201Project_Group16")
     tagList(tags$div("Through our data anaylsis, we identified a few interesting
-            points about air pollution. For trachea, bronchus, and lung cancers, a 
-            noticeably large amount of men died compared to the number of women. 
+            points about air pollution. For trachea, bronchus, and lung cancers,
+            a noticeably large amount of men died compared to the number of women. 
             This could be a sign that these cancers affect more men and women, 
-            which would be useful in future research of these cancers."), tags$br(),
+            which is useful information for people interested in these diseases."),
+            tags$br(),
             tags$div("We also noticed that the lower respiratory infections had 
             the highest rate of people dying per 100,00 compared to the other 
-            causes. It would be interesting to research why these are so common 
+            causes. It would be interesting to see why these are so common 
             and if they're always fatal, so we could possibly lower this rate."),
             tags$br(), tags$div("The final point of interest we found is that 
             the Democratic People's Republic of Korea was top on
             the list for 10 countries with the highest death rate for trachea, 
             bronchus, and lung cancers, stroke, and chronic obstructive pulmonary
-            disease. This information is very useful to people who are interested
+            disease. This information is very helpful for people who are interested
             in the geographical effects of air pollution, because many of the 
             negative effects are in the same area."), tags$br(), tags$div("We 
             hope that our audience has learned a lot about air pollution, and 
