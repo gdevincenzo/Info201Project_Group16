@@ -87,8 +87,10 @@ server <- function(input, output) {
             Chronic obstructive pulmonary disease. Along with these five causes 
             were the number of males, females, and members of both sex that had 
             died from each cause in each country per 100,000 people. We were aiming
-            to answer questions about how causes of death affected men and women
-            differenetly, and how they varied based on geographical locations."),
+            to answer questions for a general audience about how causes of death
+            affected men and women
+            differenetly, and how they varied based on geographical locations.
+            This information could also be used to guide further research."),
             tags$br(),
             tags$div("We got all of our data from a", url), tags$br(), tags$br(),
             tags$i("This project was created by Allison Gibbons, Gabriela De 
